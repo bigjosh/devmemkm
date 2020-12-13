@@ -87,7 +87,7 @@ How nice is that!?
 ### Increasing the priority for PRU access to the L3/L4 interconnects
 
 ```
- sudo insmod devmemkm.ko addr=0x44e10608 val=0x03
+ sudo insmod devmemkm.ko addr=0x44e10608 val=0x30
 ```
 
 After you execute this line, all your PRU accesses to DDR RAM will win if there is a contest with the ARM MPU. 
