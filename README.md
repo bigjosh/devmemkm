@@ -84,7 +84,7 @@ SET r30,r30, 0
 CLR r30,r30, 0
 ```
 
-This works because `0x44e10990` is the address of the pin control register in the Control Module of the ARM chip, and `0x05` sets the 
+This works because `0x44e10990` is the address of the pin control register in the Control Module of the ARM chip, and `0x05` sets the pin miltiplexer to the PRU output.
 
 How nice is that!?
 
