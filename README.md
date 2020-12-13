@@ -92,7 +92,7 @@ How nice is that!?
 
 After you execute this line, all your PRU accesses to DDR RAM will win if there is a contest with the ARM MPU. 
 
-If you know what any of this means, then you will see why this is a game changer.
+If you know what any of this means, then you will see why this is a game changer and was the reason why I wrote `devmemkm`.
 
 ## FAQ
 
