@@ -88,6 +88,16 @@ This works because `0x44e10990` is the address of the pin control register in th
 
 How nice is that!?
 
+### Increasing the priority for PRU access to the L3/L4 interconnects
+
+```
+ sudo insmod devmemkm.ko addr=0x44e10608 val=0x03
+```
+
+After you execute this line, all your PRU accesses to DDR RAM will win if there is a contest with the ARM MPU. 
+
+If you know what any of this means, then you will see why this is awesome. 
+
 ## FAQ
 
 > Why don't you just use normal `devemem2` to write to the address?
@@ -112,16 +122,4 @@ I'm sure that's how all the other ways of doing this started before they got com
 
 > Have you tried meditation? 
 
-Listen I just wasted a fricken week to get something working that should have taken an hour - and all because of system bugs, bad design, wrong documentation, and other unnecessary friction. I just want to set my memory locations to what I want them to be and get on with my life. 
-
-// Set P9_31 to PRU out. This is PRU reg 30 bit 0.
-
-
-const unsigned gpio_set =  0x44e10990 ;
-
-const unsigned pru_init_priority =  0x44e10608;
-
-P9_29 GPIO3_15 LEDSCAPE42 SPI_1_DO GPIO_121 
-control 44e109e4
-
-
+Listen I just wasted a fricken week to get something working that should have taken an hour - and almost none of that time was actually working on the thing I was working on. It was spent dealing with system bugs, bad design, wrong documentation, and other unnecessary frictions. I just want to set my memory locations to what I want them to be and get on with my life. 
