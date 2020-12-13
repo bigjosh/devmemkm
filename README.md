@@ -90,7 +90,7 @@ How nice is that!?
  sudo insmod devmemkm.ko addr=0x44e10608 val=0x30
 ```
 
-After you execute this line, all your PRU accesses to DDR RAM will win if there is a contest with the ARM MPU. 
+After you execute this line, all your PRU accesses to the GPIO peripherals will win if there is a contest with the ARM MPU. 
 
 If you know what any of this means, then you will see why this is a game changer and was the reason why I wrote `devmemkm`.
 
