@@ -48,7 +48,7 @@ Yep this part is harder than it should be. To compile a loadable kernel module, 
 On my BeagleBone running Debian, this worked...
 ```
 apt-get update
-sudo apt install linux-headers-$(uname -r)
+sudo apt-get install linux-headers-$(uname -r)
 ```
 
 I also had to add a link like this...
