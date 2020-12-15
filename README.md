@@ -8,7 +8,7 @@ A super-powered version of devmem/devmem2 that uses a kernel module to reach all
 ## Usage
 
 ```
-sudo insmod devmemkm.ko addr=0x44e10990 val=0x01
+sudo modprobe devmemkm addr=0x44e10990 val=0x01
 ```
 
 ...where `addr` is the address to write to and `val` is the value to write there (size `unsigned`).
@@ -35,11 +35,12 @@ This error means nothing happened because you did not specify an `addr`. If you 
 
 ## Installation
 
-1. Make sure you have [kernel header files installed](https://www.google.com/search?q=install+kernel+header+files&oq=install+kernel+header+files) and linked to `/lib/modules/$(shell uname -r)/build/`. 
+1. Make sure you have [kernel header files installed](https://www.google.com/search?q=install+kernel+header+files&oq=install+kernel+header+files) and linked to `/lib/modules/$(uname -r)/build/`. 
 1. `git clone https://github.com/bigjosh/devmemkm`
 2. `cd devmemkm`
 3. `make`
-
+4. `make install`
+5. `depmod -a`
 
 ## Kernel header files
 
@@ -65,7 +66,7 @@ When programming on the BeagleBone PRU, it is very nice to be able to twiddle an
 Luckily with `devmemkm` we can configure the pin faster than you can say `SBBO`!
 
 ```
- sudo insmod devmemkm.ko addr=0x44e10990 val=0x05
+ sudo modprobe devmemkm addr=0x44e10990 val=0x05
 ```
 
 That's it! Now pin `pr1_pru0_pru_r30_0` (or called `P9_31` or `GPIO_110` or `SPI1_SCLK` or `PIN 100` depending on where you grew up) is now assigned to bit0 on r30 on PRU #0. You can twiddle it with this lovely PRU ASM code...
@@ -87,7 +88,7 @@ How nice is that!?
 ### Increasing the priority for PRU access to the L3/L4 interconnects
 
 ```
- sudo insmod devmemkm.ko addr=0x44e10608 val=0x03
+ sudo modprobe devmemkm.ko addr=0x44e10608 val=0x03
 ```
 
 After you execute this line, all your PRU accesses to DDR RAM will win if there is a contest with the ARM MPU. 
@@ -95,6 +96,15 @@ After you execute this line, all your PRU accesses to DDR RAM will win if there 
 If you know what any of this means, then you will see why this is a game changer.
 
 ## FAQ
+
+> Can I use this without installing it into my `/lib/modules`?
+
+Yes, just skip the last 2 lines of the install instructions above (`make install` & `depmod -a`). You can now directly load the module like this...
+
+```
+sudo insmod devmemkm.ko addr=0x44e10990 val=0x01
+```
+...where `devmemkm.ko` can be a full path to that file. 
 
 > Why don't you just use normal `devemem2` to write to the address?
 
