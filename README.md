@@ -49,7 +49,7 @@ Yep this part is harder than it should be. To compile a loadable kernel module, 
 On my BeagleBone running Debian, this worked...
 ```
 apt-get update
-sudo apt install linux-headers-$(uname -r)
+sudo apt-get install linux-headers-$(uname -r)
 ```
 
 I also had to add a link like this...
@@ -88,12 +88,12 @@ How nice is that!?
 ### Increasing the priority for PRU access to the L3/L4 interconnects
 
 ```
- sudo modprobe devmemkm.ko addr=0x44e10608 val=0x03
+ sudo modprobe devmemkm.ko addr=0x44e10608 val=0x30
 ```
 
-After you execute this line, all your PRU accesses to DDR RAM will win if there is a contest with the ARM MPU. 
+After you execute this line, all your PRU accesses to the GPIO peripherals will win if there is a contest with the ARM MPU. 
 
-If you know what any of this means, then you will see why this is a game changer.
+If you know what any of this means, then you will see why this is a game changer and was the reason why I wrote `devmemkm`.
 
 ## FAQ
 
